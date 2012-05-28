@@ -152,7 +152,6 @@ var map;
             var defaults = {
                 requestEncoding: "REST",
                 matrixSet: "google3857",
-                buffer: 4,
                 attribution: 'Datenquelle: Stadt Wien - <a href="http://data.wien.gv.at">data.wien.gv.at</a>'
             };
             var doc = request.responseText,
@@ -164,7 +163,7 @@ var map;
                 {layer:"lb", requestEncoding:"REST", transitionEffect:"resize"}, defaults
             ));
             labels = format.createLayer(caps, OpenLayers.Util.applyDefaults(
-                {layer:"beschriftung", requestEncoding:"REST", isBaseLayer: false},
+                {layer:"beschriftung", requestEncoding:"REST", className:"nofade", isBaseLayer: false},
                 defaults
             ));
             map.addLayers([fmzk, aerial, labels]);
@@ -182,29 +181,29 @@ var map;
         requestEncoding: "REST",
         matrixSet: "google3857",
         tileFullExtent: extent,
-        buffer: 4,
         attribution: 'Datenquelle: Stadt Wien - <a href="http://data.wien.gv.at">data.wien.gv.at</a>'
     };
     fmzk = new OpenLayers.Layer.WMTS(OpenLayers.Util.applyDefaults({
-        url: "http://www.wien.gv.at/wmts/fmzk/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpeg",
+        url: "http://maps.wien.gv.at/wmts/fmzk/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpeg",
         layer: "fmzk",
         style: "pastell",
         transitionEffect: "resize"
     },
     defaults));
     aerial = new OpenLayers.Layer.WMTS(OpenLayers.Util.applyDefaults({
-        url: "http://www.wien.gv.at/wmts/lb/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpeg",
+        url: "http://maps.wien.gv.at/wmts/lb/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpeg",
         layer: "lb",
         style: "farbe",
         transitionEffect: "resize"
     },
     defaults));
     labels = new OpenLayers.Layer.WMTS(OpenLayers.Util.applyDefaults({
-        url: "http://www.wien.gv.at/wmts/beschriftung/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png",
+        url: "http://maps.wien.gv.at/wmts/beschriftung/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png",
         layer: "beschriftung",
         style: "normal",
         transitionEffect: null,
-        isBaseLayer: false
+        isBaseLayer: false,
+        className: "nofade"
     },
     defaults));
     map.addLayers([fmzk, aerial, labels]);
